@@ -41,10 +41,10 @@
     "@eslint/eslintrc": "3.3.5",
     "@eslint/js": "10.0.1",
     "@types/node": "25.6.0",
-    "@typescript-eslint/eslint-plugin": "8.58.1",
-    "@typescript-eslint/parser": "8.58.1",
+    "@typescript-eslint/eslint-plugin": "8.58.2",
+    "@typescript-eslint/parser": "8.58.2",
     "@vercel/ncc": "0.38.4",
-    "eslint": "10.2.0",
+    "eslint": "10.2.1",
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-github": "6.0.0",
     "eslint-plugin-import": "2.32.0",
@@ -52,10 +52,10 @@
     "glob": "13.0.6",
     "js-yaml": "4.1.1",
     "nock": "14.0.12",
-    "prettier": "3.8.2",
-    "typescript": "6.0.2",
+    "prettier": "3.8.3",
+    "typescript": "6.0.3",
     "vitest": "4.1.4",
-    "webpack": "5.106.1"
+    "webpack": "5.106.2"
   },
   "overrides": {
     "serialize-javascript": "7.0.5",
