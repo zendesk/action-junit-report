@@ -1,4 +1,4 @@
-import {readTransformers} from '../src/utils.js'
+import {buildTable, readTransformers} from '../src/utils.js'
 import {describe, expect, it} from 'vitest'
 
 /**
@@ -32,5 +32,13 @@ describe('readTransformers', () => {
         replaceValue: '.t'
       }
     ])
+  })
+})
+
+describe('buildTable', () => {
+  it('should close empty cells', async () => {
+    expect(buildTable([[{data: '', header: true}, {data: 'Tests', header: true}], ['', 'A']])).toStrictEqual(
+      '<table><tr><th></th><th>Tests</th></tr><tr><td></td><td>A</td></tr></table>'
+    )
   })
 })
