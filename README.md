@@ -17,6 +17,9 @@
   <a href="https://github.com/mikepenz/action-junit-report">
 		<img src="https://github.com/mikepenz/action-junit-report/workflows/CI/badge.svg"/>
 	</a>
+	<a href="https://scorecard.dev/viewer/?uri=github.com/mikepenz/action-junit-report">
+		<img src="https://api.scorecard.dev/projects/github.com/mikepenz/action-junit-report/badge"/>
+	</a>
 </div>
 <br />
 
