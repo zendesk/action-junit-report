@@ -51129,7 +51129,8 @@ function wrap(tag, content, attrs = {}) {
     const htmlAttrs = Object.entries(attrs)
         .map(([key, value]) => ` ${key}="${value}"`)
         .join('');
-    if (!content) {
+    // only void tags (explicit `null` content) are self-closing; an empty string still needs a closing tag
+    if (content === null) {
         return `<${tag}${htmlAttrs}>`;
     }
     return `<${tag}${htmlAttrs}>${content}</${tag}>`;
