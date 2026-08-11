@@ -1,39 +1,98 @@
-<div align="center">
-  :octocat:
-</div>
-<h1 align="center">
-  action-junit-report
-</h1>
+<h1 align="center">action-junit-report</h1>
 
 <p align="center">
     ... reports JUnit test results as GitHub pull request check.
 </p>
 
-<div align="center">
-  <img src=".github/images/action.png"/>
-</div>
-
-<div align="center">
-  <a href="https://github.com/mikepenz/action-junit-report">
-		<img src="https://github.com/mikepenz/action-junit-report/workflows/CI/badge.svg"/>
-	</a>
-	<a href="https://scorecard.dev/viewer/?uri=github.com/mikepenz/action-junit-report">
-		<img src="https://api.scorecard.dev/projects/github.com/mikepenz/action-junit-report/badge"/>
-	</a>
-</div>
-<br />
-
--------
+<p align="center">
+	<a href="https://github.com/mikepenz/action-junit-report/actions"><img src="https://github.com/mikepenz/action-junit-report/workflows/CI/badge.svg" alt="CI"></a>
+	<a href="https://github.com/marketplace/actions/junit-report-action"><img src="https://img.shields.io/github/v/release/mikepenz/action-junit-report?label=marketplace&color=1A7F37" alt="Marketplace"></a>
+	<a href="https://scorecard.dev/viewer/?uri=github.com/mikepenz/action-junit-report"><img src="https://api.scorecard.dev/projects/github.com/mikepenz/action-junit-report/badge" alt="OpenSSF Scorecard"></a>
+	<a href="#license"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="License"></a>
+</p>
 
 <p align="center">
-    <a href="#whats-included-">What's included 🚀</a> &bull;
-    <a href="#setup">Setup 🛠️</a> &bull;
-    <a href="#sample-%EF%B8%8F">Sample 🖥️</a> &bull;
-    <a href="#contribute-">Contribute 🧬</a> &bull;
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mikepenz/action-junit-report/main/.github/images/hero-dark.svg">
+    <img src="https://raw.githubusercontent.com/mikepenz/action-junit-report/main/.github/images/hero-light.svg" width="100%" alt="action-junit-report: JUnit XML reports become a pull request check with pass/fail counts and an inline annotation on the failing line">
+  </picture>
+</p>
+
+<p align="center">
+    <a href="#quickstart-">Quickstart 🛠️</a> &bull;
+    <a href="#showcase-">Showcase 🖥️</a> &bull;
+    <a href="#inputs">Inputs</a> &bull;
+    <a href="#action-outputs">Outputs</a> &bull;
+    <a href="#reference">Reference 📖</a> &bull;
     <a href="#license">License 📓</a>
 </p>
 
+| | |
+|---|---|
+| ✅ **A check on the pull request** | One check run per report, with the failure annotated on the line that failed |
+| 📊 **Summaries where you look** | `job_summary`, `detailed_summary`, `flaky_summary` — and `comment: true` to post them on the PR |
+| 🧩 **Parses what other tools emit** | `<failure>` and `<error>`, nested suites, retries via `check_retries`, any language |
+| 🔐 **No `checks: write`? Still works** | `annotate_only: true` annotates forks and read-only tokens without a check run |
+| 🏷️ **Titles you control** | `check_title_template` with `{{BREAD_CRUMB}}`, `{{SUITE_NAME}}`, `{{TEST_NAME}}`, `{{CLASS_NAME}}` |
+| 📈 **Counts as outputs** | `total`, `passed`, `failed`, `skipped`, `retried`, `report_url` for downstream steps |
+
+## Quickstart 🛠️
+
+**1.** Add the action after your test step, and let it run even when the tests failed:
+
+```yml
+- name: Publish Test Report
+  id: report
+  uses: mikepenz/action-junit-report@v6
+  if: success() || failure() # always run even if the previous step fails
+  with:
+    report_paths: '**/build/test-results/test/TEST-*.xml'
+```
+
+**2.** Give the workflow permission to create the check:
+
+```yml
+permissions:
+  checks: write
+  pull-requests: write # only required if `comment: true` was enabled
+```
+
+**3.** Optionally read the counts back out — see [Action outputs](#action-outputs):
+
+```yml
+- run: echo "${{ steps.report.outputs.failed }} of ${{ steps.report.outputs.total }} tests failed"
+```
+
+> [!TIP]
+> Running from a `workflow_run` workflow, or from a fork? See [PR run permissions](#pr-run-permissions).
+
+## Showcase 🖥️
+
+The failure is annotated inline, on the line the test failed on:
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/mikepenz/action-junit-report/main/.github/images/annotated.png" width="100%" alt="A pull request diff showing two check failures annotated inline on the failing lines of EmailAddressTest.java">
+</p>
+
+...and collected on the check run, one entry per failed test case:
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/mikepenz/action-junit-report/main/.github/images/annotations.png" width="100%" alt="The Annotations panel of a check run listing 13 errors and 1 warning with file and line references">
+</p>
+
 -------
+
+# Reference
+
+| Topic | |
+|---|---|
+| [What's included](#whats-included-) | The short feature list |
+| [Configure the workflow](#configure-the-workflow) | The full workflow example |
+| [Inputs](#inputs) | Every input the action accepts |
+| [Common Configurations](#common-configurations) | `report_paths` per build tool, Node heap tuning |
+| [Action outputs](#action-outputs) | `total`, `passed`, `failed`, `summary`, `report_url`, … |
+| [PR run permissions](#pr-run-permissions) | Forks, `workflow_run`, and `annotate_only` |
+| [Contribute](#contribute-) | Build and test the action locally |
 
 ### What's included 🚀
 
@@ -299,17 +358,6 @@ jobs:
 This will selectively use different methods for forked and unforked repos.
 </p>
 </details>
-
-## Sample 🖥️
-
-<div align="center">
-  <img src=".github/images/annotated.png"/>
-</div>
-
-<div align="center">
-  <img src=".github/images/annotations.png"/>
-</div>
-
 ## Contribute 🧬
 
 ```bash
