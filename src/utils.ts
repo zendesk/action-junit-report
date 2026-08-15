@@ -26,6 +26,17 @@ export function retrieve(name: string, items: string[], index: number, total: nu
 }
 
 /**
+ * Splits a list input on newlines and commas, trimming and dropping empty entries.
+ * Historically `exclude_sources` was documented as comma separated, both are accepted.
+ */
+export function splitList(items: string[]): string[] {
+  return items
+    .flatMap(item => item.split(','))
+    .map(item => item.trim())
+    .filter(item => item !== '')
+}
+
+/**
  * Reads in the configuration from the JSON file
  */
 export function readTransformers(raw: string | undefined): Transformer[] {

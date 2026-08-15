@@ -2,7 +2,7 @@ import * as core from '@actions/core'
 import * as github from '@actions/github'
 import {annotateTestResult, attachComment, attachSummary, CheckInfo} from './annotator.js'
 import {parseTestReports, TestResult} from './testParser.js'
-import {buildTable, readTransformers, retrieve} from './utils.js'
+import {buildTable, readTransformers, retrieve, splitList} from './utils.js'
 import {GitHub} from '@actions/github/lib/utils'
 import {buildSummaryTables} from './table.js'
 
@@ -51,7 +51,7 @@ export async function run(): Promise<void> {
     const checkName = core.getMultilineInput('check_name')
     const testFilesPrefix = core.getMultilineInput('test_files_prefix')
     const suiteRegex = core.getMultilineInput('suite_regex')
-    let excludeSources = core.getMultilineInput('exclude_sources') ? core.getMultilineInput('exclude_sources') : []
+    let excludeSources = splitList(core.getMultilineInput('exclude_sources'))
     const checkTitleTemplate = core.getMultilineInput('check_title_template')
     const breadCrumbDelimiter = core.getInput('bread_crumb_delimiter')
     const transformers = readTransformers(core.getInput('transformers', {trimWhitespace: true}))

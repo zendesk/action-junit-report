@@ -51042,6 +51042,16 @@ function retrieve(name, items, index, total) {
     }
 }
 /**
+ * Splits a list input on newlines and commas, trimming and dropping empty entries.
+ * Historically `exclude_sources` was documented as comma separated, both are accepted.
+ */
+function splitList(items) {
+    return items
+        .flatMap(item => item.split(','))
+        .map(item => item.trim())
+        .filter(item => item !== '');
+}
+/**
  * Reads in the configuration from the JSON file
  */
 function readTransformers(raw) {
@@ -52109,7 +52119,7 @@ async function run() {
         const checkName = getMultilineInput('check_name');
         const testFilesPrefix = getMultilineInput('test_files_prefix');
         const suiteRegex = getMultilineInput('suite_regex');
-        let excludeSources = getMultilineInput('exclude_sources') ? getMultilineInput('exclude_sources') : [];
+        let excludeSources = splitList(getMultilineInput('exclude_sources'));
         const checkTitleTemplate = getMultilineInput('check_title_template');
         const breadCrumbDelimiter = getInput('bread_crumb_delimiter');
         const transformers = readTransformers(getInput('transformers', { trimWhitespace: true }));
