@@ -24,7 +24,7 @@ inputs:
     required: false
     default: ''
   exclude_sources:
-    description: 'Comma seperated list of source folders to ignore for lookup'
+    description: 'Comma or newline separated list of source folders to ignore for lookup'
     required: false
   annotate_only:
     description: 'Enable to only annotate the results on the files, will not create a check run.'
