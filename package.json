@@ -41,9 +41,9 @@
     "@eslint/eslintrc": "3.3.6",
     "@eslint/js": "10.0.1",
     "@types/node": "25.9.5",
-    "@typescript-eslint/eslint-plugin": "8.66.0",
-    "@typescript-eslint/parser": "8.66.0",
-    "@vercel/ncc": "0.44.1",
+    "@typescript-eslint/eslint-plugin": "8.67.0",
+    "@typescript-eslint/parser": "8.67.0",
+    "@vercel/ncc": "0.45.0",
     "eslint": "10.8.1",
     "eslint-import-resolver-typescript": "4.4.5",
     "eslint-plugin-github": "6.1.2",
@@ -54,7 +54,7 @@
     "nock": "14.0.17",
     "prettier": "3.9.6",
     "typescript": "6.0.3",
-    "vitest": "4.1.10",
+    "vitest": "4.1.11",
     "webpack": "5.109.2"
   },
   "overrides": {
